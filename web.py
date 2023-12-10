@@ -23,6 +23,7 @@ async def get_data() -> list:
         cur.execute(query)
         data = cur.fetchall()
         return_list = []
+        # Формирую список с записями
         for i in data:
             data_dict = {}
             data_dict["id"] = i[0]
@@ -71,9 +72,6 @@ async def post_data(log: PostLog) -> dict:
         
     except:
         raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT, detail="Что-то пошло не так")
-    
-
-
 
 
 app.include_router(app_router)
