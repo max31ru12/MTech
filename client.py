@@ -25,8 +25,7 @@ def generate_request_data() -> str:
     status_code = random.randint(100, 600)
 
     request_data = f"{{{address}}} {{{method}}} {{{uri}}} {{{status_code}}}"
-    # Может быть логировать надо в другом месте???
-    log(request_data)
+
 
     return request_data
 
@@ -34,8 +33,10 @@ def generate_request_data() -> str:
 def send_post_request(data: generate_request_data) -> None:
 
     try:
-        data = {"log": data}
-        response = requests.post("http://127.0.0.1:8000/api/data", json=data)
+        request_data = {"log": data}
+        response = requests.post("http://127.0.0.1:8000/api/data", json=request_data)
+        # Может быть логировать надо в другом месте???
+        log(request_data)
         print(response.status_code)
 
     except requests.exceptions.RequestException as e:
