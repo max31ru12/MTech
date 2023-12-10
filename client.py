@@ -45,7 +45,8 @@ def send_post_request(data: generate_request_data) -> None:
         response = requests.post("http://127.0.0.1:8000/api/data", json=request_data)
         # Данные логируются только в случае успеха отправки данных
         log(data)
-        print(response.status_code)
+        # Для проверки работы в консоли
+        print(response.status_code) 
 
     except requests.exceptions.RequestException as e:
         print(f"Error: {e}")
