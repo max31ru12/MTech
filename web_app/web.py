@@ -3,16 +3,25 @@ from models import PostLog, GetLog, GetLogData
 import psycopg2
 import uuid
 import time
+import os
+
+
 
 app = FastAPI()
 app_router = APIRouter()
 
 
+db_params = {
+    "dbname": "mtech",
+    "user": "mtech",
+    "password": "mtech_321",
+    "host": "db",
+    "port": "5432",
+}
+
 
 # Подклбчение к бд Postgres
-conn = psycopg2.connect(dbname="mtech",
-                        user="mtech",
-                        password="mtech_321")
+conn = psycopg2.connect(**db_params)
 cur = conn.cursor()
 
 

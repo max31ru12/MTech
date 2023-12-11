@@ -7,4 +7,5 @@ COPY ./ /web_app
 COPY ./requirements.txt /web_app
 WORKDIR /web_app
 RUN pip install -r requirements.txt
+
 CMD ["uvicorn", "web:app", "--host", "0.0.0.0", "--port", "8000"]

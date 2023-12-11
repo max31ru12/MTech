@@ -1,1 +1,58 @@
-1
+version: "3.8"
+
+services:
+
+  db:
+    image: postgres:13
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=mtech
+      - POSTGRES_USER=mtech
+      - POSTGRES_PASSWORD=mtech_321
+    volumes:
+    - ./web_app/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+    - my_network
+
+  app:
+    build: ./web_app/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=mtech
+      - POSTGRES_PASSWORD=mtech_321
+      - POSTGRES_DB=mtech
+    networks:
+    - my_network
+
+  client:
+    build: ./client/
+    ports: 
+      - "80:80"
+    depends_on:
+      - app
+    networks:
+    - my_network
+    
+  processing:
+    build: ./process/
+    ports: 
+      - "443:443"
+    depends_on:
+    - app
+    volumes:
+    - ./process/mounted.txt:/app/mounted.txt
+    networks:
+    - my_network
+
+
+networks:
+  my_network:
+    driver: bridge
