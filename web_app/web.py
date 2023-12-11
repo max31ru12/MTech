@@ -2,10 +2,12 @@ from fastapi import APIRouter, FastAPI, HTTPException, status
 from models import PostLog, GetLog, GetLogData
 import psycopg2
 import uuid
-
+import time
 
 app = FastAPI()
 app_router = APIRouter()
+
+
 
 # Подклбчение к бд Postgres
 conn = psycopg2.connect(dbname="mtech",
@@ -68,7 +70,7 @@ async def post_data(log: PostLog) -> dict:
         conn.commit()
         
         # Тут будет добавление в базу данных
-        return {"message": "succesfully added data"}
+        return {"message": "Лог сохранен"}
         
     except:
         raise HTTPException(status_code=status.HTTP_418_IM_A_TEAPOT, detail="Что-то пошло не так")

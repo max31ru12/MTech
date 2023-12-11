@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS get_log_data (
+    id SERIAL PRIMARY KEY,
+    ip VARCHAR(45) NOT NULL,
+    method VARCHAR(255) NOT NULL,
+    uri VARCHAR(255) NOT NULL,
+    status_code INT NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS get_log (
+    id SERIAL PRIMARY KEY,
+    uuid4 UUID NOT NULL,
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    log_id INT REFERENCES get_log_data(id) NOT NULL
+);

@@ -7,7 +7,8 @@ import time
 
 # Работа с переменными окружения
 load_dotenv()
-thred_quantity = int(os.getenv("thread_quantity"))
+thread_quantity = int(os.getenv("thread_quantity"))
+print(thread_quantity)
 request_delay = int(os.getenv("request_delay"))
 
 # """В задании буквально написано, что строка выглядит следующим образом: '{208.33.245.18} {PUT} {http://my-example.com} {108}' """
@@ -53,7 +54,7 @@ def send_post_request(data: generate_request_data) -> None:
 
 
 while True:
-    for i in range(thred_quantity):
+    for i in range(thread_quantity):
 
         thread = threading.Thread(target=send_post_request, args=(generate_request_data(), ), daemon=True)
         thread.start()
